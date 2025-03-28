@@ -5,7 +5,12 @@ const stringSimilarity = require("string-similarity");
 const dotenv = require("dotenv")
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: ['https://hotel-management-2-03dr.onrender.com', 'http://localhost:3000', 'https://hotel-management-sepia-eight.vercel.app', 'https://port-wlyd.vercel.app/'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+}));
+
 app.use(express.json());
 dotenv.config({path: "./config/config.env"});
 
