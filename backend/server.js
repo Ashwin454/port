@@ -2,12 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const stringSimilarity = require("string-similarity");
+const dotenv = require("dotenv")
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-const API_KEY = "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";
+dotenv.config({path: "./config/config.env"});
 
 // ⬇ Your structured personal questions
 const personalQA = [
@@ -254,12 +254,13 @@ app.post("/api/chat", async (req, res) => {
     } else {
         // Otherwise get response from HuggingFace
         try {
+            console.log(process.env.HF_TOKEN);
             const response = await axios.post(
                 "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill",
                 { inputs: userMessage },
-                { headers: { Authorization: `Bearer ${API_KEY}` } }
+                { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` } }
             );
-            console.log(response);
+            // console.log(response);
             finalResponse = {
                 data: [
                     { generated_text: response.data[0].generated_text }
@@ -267,7 +268,7 @@ app.post("/api/chat", async (req, res) => {
                 source: "huggingface"
             };
         } catch (error) {
-            console.error("Hugging Face Error: ", error);
+            // console.error("Hugging Face Error: ", error);
             return res.status(500).send("Something went wrong!");
         }
     }
