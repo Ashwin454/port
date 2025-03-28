@@ -263,7 +263,7 @@ app.post("/api/chat", async (req, res) => {
             const response = await axios.post(
                 "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill",
                 { inputs: userMessage },
-                { headers: { Authorization: `Bearer ${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}` } }
+                { headers: { Authorization: "Bearer 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" } }
             );
             // console.log(response);
             finalResponse = {
