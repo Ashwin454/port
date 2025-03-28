@@ -248,7 +248,7 @@ app.post("/api/chat", async (req, res) => {
         }
     });
 
-    if (bestMatch.rating > 0.7) {
+    if (bestMatch.rating > 0.6) {
         // If matched with personal questions
         finalResponse = {
             data: [
